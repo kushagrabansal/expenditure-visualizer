@@ -6,9 +6,12 @@ const express = require('express');
 const app = express();
 app.use(helmet());
 app.use(compression());
+const DIST_DIR = './dist';
 
-const HOST = process.env.API_HOST || 'localhost';
-const PORT = process.env.API_PORT || 3002;
+app.use(express.static(DIST_DIR));
+
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 3002;
 
 app.get('/api/v1/endpoint', (req, res) => {
     res.json({ success: true });
@@ -16,6 +19,6 @@ app.get('/api/v1/endpoint', (req, res) => {
 
 app.listen(PORT, () =>
     console.log(
-        `✅  API Server started: http://${HOST}:${PORT}/api/v1/endpoint`
+        `Server started: http://${HOST}:${PORT}/`
     )
 );
